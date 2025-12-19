@@ -1,8 +1,10 @@
 networks:
-  traefik-net:
+  web:
     driver: bridge
     driver_opts:
       com.docker.network.bridge.host_binding_ipv4: "10.10.0.3"
+    external: true
+      
 
 services:
   traefik:
@@ -18,4 +20,4 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
-      - traefik-net
+      - web
