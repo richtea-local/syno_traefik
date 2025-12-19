@@ -3,7 +3,7 @@ networks:
     driver: bridge
     driver_opts:
       com.docker.network.bridge.host_binding_ipv4: "10.10.0.3"
-    external: true
+    name: traefik-web
       
 
 services:
