@@ -13,3 +13,5 @@ You also need to create a docker network called `dmz`, e.g.:
 ```shell
 docker network create dmz
 ```
+
+or run the `./init` shell script.
