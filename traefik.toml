@@ -1,6 +1,7 @@
 
-[entrypoints.web]
-    address = ":80"
+[entrypoints]
+    [entrypoints.web]
+        address = ":80"
 
 [api]
     dashboard = true
@@ -16,4 +17,8 @@
 [log]
     level = "INFO"
     filePath = "/var/log/traefik/traefik.log"
+    format = "common"
+
+[accessLog]
+    filePath = "/var/log/traefik/access.log"
     format = "common"
