@@ -4,6 +4,8 @@ networks:
     driver_opts:
       com.docker.network.bridge.host_binding_ipv4: "10.10.0.3"
     name: traefik-web
+  dmz:
+    external: true
       
 
 services:
@@ -16,8 +18,10 @@ services:
       - "--entrypoints.web.address=:80"
     ports:
       - "80:80"
+      # - "443:443"
       - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - web
+      - dmz
