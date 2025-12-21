@@ -16,9 +16,9 @@ services:
       - "--providers.docker=true"
       - "--entrypoints.web.address=:80"
     ports:
-      - "${HOST_BINDING_IP:?$HOST_BINDING_IP required}:80"
-      # - "${HOST_BINDING_IP:?$HOST_BINDING_IP required}::443"
-      - "${HOST_BINDING_IP:?$HOST_BINDING_IP required}:8080"
+      - "${HOST_BINDING_IP:?$HOST_BINDING_IP required}:80:80"
+      # - "${HOST_BINDING_IP:?$HOST_BINDING_IP required}:443:443"
+      - "${HOST_BINDING_IP:?$HOST_BINDING_IP required}:8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
