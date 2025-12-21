@@ -1,8 +1,6 @@
 networks:
   web:
     driver: bridge
-    driver_opts:
-      com.docker.network.bridge.host_binding_ipv4: "10.10.0.3"
     name: traefik-web
   dmz:
     external: true
@@ -12,14 +10,15 @@ services:
   traefik:
     image: traefik:v3.6
     restart: unless-stopped
+    container_name: traefik
     command:
       - "--api.insecure=true"
       - "--providers.docker=true"
       - "--entrypoints.web.address=:80"
     ports:
-      - "80:80"
-      # - "443:443"
-      - "8080:8080"
+      - "${HOST_BINDING_IP:+$HOST_BINDING_IP:}80"
+      # - "${HOST_BINDING_IP:+$HOST_BINDING_IP:}443:443"
+      - "${HOST_BINDING_IP:+$HOST_BINDING_IP:}:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
