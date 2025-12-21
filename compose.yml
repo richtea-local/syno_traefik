@@ -16,15 +16,22 @@ services:
     labels:
       # Enable self‑routing
       - "traefik.enable=true"
-
+      - traefik.http.routers.mydashboard.rule=Host(`traefik.tebb.me`)
+      - traefik.http.routers.mydashboard.service=api@internal
     ports:
       - "${HOST_BINDING_IP:?$HOST_BINDING_IP required}:80:80"
       # - "${HOST_BINDING_IP:?$HOST_BINDING_IP required}:443:443"
       - "${HOST_BINDING_IP:?$HOST_BINDING_IP required}:8080:8080"
+      - "${HOST_BINDING_IP:?$HOST_BINDING_IP required}:8443:8443"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./traefik.toml:/etc/traefik/traefik.toml:ro
       - ./logs:/var/log/traefik
+      - traefik_acme:/etc/traefik/acme
     networks:
       - web
       - dmz
+
+volumes:
+  traefik_acme:
+    external: true
