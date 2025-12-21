@@ -12,17 +12,7 @@ services:
     restart: unless-stopped
     container_name: traefik
     command:
-      # API & Dashboard 
-      - "--api.dashboard=true"
-      - "--api.insecure=true"
-
-      # Providers 
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--providers.docker.network=proxy"
-
-      - "--entrypoints.web.address=:80"
-  # Traefik Dynamic configuration via Docker labels
+      - "--configFile=/etc/traefik/traefik.toml"
     labels:
       # Enable self‑routing
       - "traefik.enable=true"
@@ -33,6 +23,7 @@ services:
       - "${HOST_BINDING_IP:?$HOST_BINDING_IP required}:8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik.toml:/etc/traefik/traefik.toml:ro
     networks:
       - web
       - dmz

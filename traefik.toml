@@ -1,0 +1,19 @@
+
+[entrypoints.web]
+    address = ":80"
+
+[api]
+    dashboard = true
+    insecure = true
+
+[providers.docker]
+    exposedByDefault = false
+    network = "dmz"
+
+[serversTransport]
+    insecureSkipVerify = true
+
+[log]
+    level = "INFO"
+    filePath = "/var/log/traefik/traefik.log"
+    format = "common"
