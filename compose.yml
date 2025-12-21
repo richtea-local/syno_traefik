@@ -12,9 +12,21 @@ services:
     restart: unless-stopped
     container_name: traefik
     command:
+      # API & Dashboard 
+      - "--api.dashboard=true"
       - "--api.insecure=true"
+
+      # Providers 
       - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=proxy"
+
       - "--entrypoints.web.address=:80"
+  # Traefik Dynamic configuration via Docker labels
+    labels:
+      # Enable self‑routing
+      - "traefik.enable=true"
+
     ports:
       - "${HOST_BINDING_IP:?$HOST_BINDING_IP required}:80:80"
       # - "${HOST_BINDING_IP:?$HOST_BINDING_IP required}:443:443"
