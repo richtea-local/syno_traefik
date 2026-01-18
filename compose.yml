@@ -9,7 +9,7 @@ networks:
 services:
   traefik:
     image: traefik:v3.6
-    restart: unless-stopped
+    restart: never
     container_name: traefik
     command:
       - "--configFile=/etc/traefik/traefik.toml"
@@ -27,11 +27,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./traefik.toml:/etc/traefik/traefik.toml:ro
       - ./logs:/var/log/traefik
-      - traefik_acme:/etc/traefik/acme
+      - ./acme:/etc/traefik/acme
     networks:
       - web
       - dmz
 
-volumes:
-  traefik_acme:
-    external: true

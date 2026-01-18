@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
 
 docker network create dmz
-docker volume create traefik_acme
